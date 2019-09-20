@@ -6,17 +6,15 @@ describe('fluffies model', () => {
     beforeEach(async () => {
         await db('fluffies').truncate();
     });
-    it('should set environment to be testing', () => {
-        expect(process.env.DB_ENV).toBe('testing');
-    });
     describe('insert()', () => {
         it('should insert fluffies into the db', async () => {
-            await Fluffies.insert({ name: 'Duckilng' });
+            await Fluffies.insert({ name: 'Duckling' });
             await Fluffies.insert({ name: 'Gosling' });
             await Fluffies.insert({ name: 'Benjamin' });
             await Fluffies.insert({ name: 'New Fluffy' });
+            let fluffies = await db('fluffies');
             console.log(fluffies);
-            expect(fluffies).toHaveLength(1);
+            expect(fluffies).toHaveLength(4);
         });
         it('should insert fluffies into the db', async () => {
             const [id] = await Fluffies.insert({ name: 'Newest Fluff' });
@@ -31,12 +29,12 @@ describe('fluffies model', () => {
             await Fluffies.insert({ name: 'New Fluffy' });
             await Fluffies.insert({ name: 'Newest Fluff' });
             let fluffies = await db('fluffies');
-            // console.log(fluffies);
-            expect(fluffies).toHaveLength(1);
+            console.log(fluffies);
+            expect(fluffies).toHaveLength(2);
             //remove a record
-            const [id] = await db('fluffies')[0].id.remove(id);
+            const [id] = await db('fluffies')[2].remove(id);
             let fluffy = await db('fluffies');
-            expect(Fluffies).not.toHaveLength(1)
+            expect(Fluffies).not.toHaveLength(2)
         });
     });
 });

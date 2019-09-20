@@ -1,5 +1,5 @@
-const router = require('express').Router();
 
+const express = require('express');
 const server = express();
 
 server.use(express.json());
